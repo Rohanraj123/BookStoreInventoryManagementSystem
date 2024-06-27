@@ -1,34 +1,39 @@
 package com.inventory.bookstoremanager.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String isbn;
     private String title;
-    private String author;
+    private String isbn;
     private String publisher;
-    private double price;
-    private LocalDate publicationDate;
-    private int stockLevel;
+    private Date publicationYear;
+    private String genre;
+    private String language;
+    private int numberOfPages;
+    private String description;
+    private String coverImageUrl;
+    private String availabilityStatus;
+    private String shelfLocation;
+    private double rating;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private Author author;
 
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews;
 }

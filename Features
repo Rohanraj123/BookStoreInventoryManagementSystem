@@ -1,0 +1,26 @@
+/**
+  * Book Management
+
+    * Add a new book
+    * Get details of a book by ID
+    * Update book details
+    * Delete a book
+    * List all books
+    * Author Management
+
+    * Add a new author
+    * Get details of an author by ID
+    * Update author details
+    * Delete an author
+    * List all authors
+    * Book Lending
+
+    * Lend a book to a user
+    * Return a lent book
+    * List all lent books
+    * Get the lending history of a book
+    */
+
+
+    DB password - kajsdfhk8374@@ahfu
+    hostname - bookinventorydb
