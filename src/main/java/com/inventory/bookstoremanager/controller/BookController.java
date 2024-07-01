@@ -16,7 +16,7 @@ public class BookController {
     }
 
     /** End point to add a new book.*/
-    @PostMapping
+    @PostMapping("addbook/public")
     public ResponseEntity<BookDTO> addBook(@RequestBody BookDTO bookDTO) {
         BookDTO savedBook = bookService.addNewBook(bookDTO);
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);

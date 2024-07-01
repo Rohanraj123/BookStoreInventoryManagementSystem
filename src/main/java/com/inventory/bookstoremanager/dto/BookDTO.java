@@ -1,7 +1,5 @@
 package com.inventory.bookstoremanager.dto;
 
-import com.inventory.bookstoremanager.entity.Review;
-
 import java.util.Date;
 import java.util.Set;
 
@@ -26,9 +24,10 @@ public class BookDTO {
     public BookDTO() {
     }
 
-    public BookDTO(Long id, String title, String isbn, String publisher, Date publicationYear, String genre,
-                   String language, int numberOfPages, String description, String coverImageUrl,
-                   String availabilityStatus, String shelfLocation, double rating, Long authorId, AuthorDTO authorDTO, Set<ReviewDTO> reviews) {
+    public BookDTO(Long id, String title, String isbn, String publisher, Date publicationYear,
+                   String genre, String language, int numberOfPages, String description, String coverImageUrl,
+                   String availabilityStatus, String shelfLocation, double rating, Long authorId,
+                   AuthorDTO authorDTO, Set<ReviewDTO> reviews) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
