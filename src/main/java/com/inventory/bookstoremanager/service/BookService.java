@@ -1,20 +1,14 @@
 package com.inventory.bookstoremanager.service;
 
 import com.inventory.bookstoremanager.dto.BookDTO;
-import com.inventory.bookstoremanager.dto.ReviewDTO;
 import com.inventory.bookstoremanager.entity.Author;
 import com.inventory.bookstoremanager.entity.Book;
-import com.inventory.bookstoremanager.entity.Review;
 import com.inventory.bookstoremanager.repository.AuthorRepository;
 import com.inventory.bookstoremanager.repository.BookRepository;
-import com.inventory.bookstoremanager.repository.ReviewRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.inventory.bookstoremanager.util.DTOConversion.convertToDTO;
 import static com.inventory.bookstoremanager.util.EntityConversion.convertToEntity;
@@ -31,8 +25,6 @@ public class BookService {
     private final BookRepository bookRepository;
     /** Instance of AuthorRepository.*/
     private final AuthorRepository authorRepository;
-    /** Instance of ReviewRepository.*/
-    private final ReviewRepository reviewRepository;
 
     /**
      * Constructor of BookService Class to access it
@@ -43,9 +35,8 @@ public class BookService {
      */
     @Autowired
     public BookService(BookRepository bookRepository,
-                       AuthorRepository authorRepository,
-                       ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
+                       AuthorRepository authorRepository
+    ) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
     }
@@ -131,19 +122,6 @@ public class BookService {
        newBook.setAuthor(author);
 
        Book savedBook = bookRepository.save(newBook);
-
-       /* Add Reviews to the book.*/
-       Set<Review> saveReviews = new HashSet<>();
-       Set<ReviewDTO> reviewDTOs = bookDTO.getReviews();
-       if (reviewDTOs != null && !reviewDTOs.isEmpty()) {
-           for (ReviewDTO reviewDTO : reviewDTOs) {
-               Review review = convertToEntity(reviewDTO);
-               review.setBook(savedBook);
-               Review savedReview = reviewRepository.save(review);
-               saveReviews.add(savedReview);
-           }
-       }
-       newBook.setReviews(saveReviews);
 
        return convertToDTO(savedBook);
     }
