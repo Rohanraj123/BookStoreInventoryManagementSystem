@@ -15,21 +15,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import javax.sql.DataSource;
-
+/**
+ * @author Rohanraj123
+ *
+ * Security Configuration class
+ * handles all the important methods and configurations
+ * related to Spring security.
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
-
-    @Autowired
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
-    }
-
+    /** Maps important design pattern of security.*/
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http
+    ) throws Exception {
+
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -45,16 +47,23 @@ public class SecurityConfig {
                                 .logoutUrl("/logout")
                                 .permitAll()
                 );
+
         return http.build();
     }
 
+    /** Provides authentication providers.*/
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration
+    ) throws Exception {
+
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /** Converts password to their corresponding Hash-Values.*/
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 }
